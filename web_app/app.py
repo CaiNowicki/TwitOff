@@ -1,13 +1,13 @@
 from flask import Flask, jsonify, request, render_template
-from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
 import tweepy
 from dotenv import load_dotenv
 import os
 import basilica
-
-from sqlalchemy.sql.functions import user
 from tweepy import TweepError
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+
+
 
 load_dotenv()
 
@@ -20,28 +20,37 @@ TWITTER_ACCESS_TOKEN = os.getenv("TWITTER_ACCESS_TOKEN", default="OOPS")
 TWITTER_ACCESS_TOKEN_SECRET = os.getenv("TWITTER_ACCESS_TOKEN_SECRET", default="OOPS")
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///web_app_cai_nowicki.db'
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///tweet_app.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+db = SQLAlchemy()
+
+migrate = Migrate(app, db)
+db.init_app(app)
 class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.BIGINT, primary_key=True)
     name = db.Column(db.String(128))
 
-
 class Tweet(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.BIGINT, primary_key=True)
     status = db.Column(db.String)
-    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    embedding = db.Column(db.PickleType)
+
+class Friends(db.Model):
+    user_id = db.Column(db.BIGINT, primary_key=True)
+    screenname = db.Column(db.String)
+    friend_of_id = db.Column(db.BIGINT, db.ForeignKey("user.id"), nullable=False)
 
 
 auth = tweepy.OAuthHandler(TWITTER_API_KEY, TWITTER_API_SECRET)
 auth.set_access_token(TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_TOKEN_SECRET)
 client = tweepy.API(auth)
+
 @app.route("/interactive_tweets", methods=["POST"])
 def interactive_tweets():
     username = request.form['name']
-    friends = client.friends(username)
+    friends = client.friends(username, count=100)
     highest_count = 0
     most_interacted_list = []
     for friend in friends:
@@ -53,6 +62,7 @@ def interactive_tweets():
                 highest_count = interactions
         most_interacted_list.append(most_interacted)
         highest_count = 0
+#  could create model to predict whether a tweet is going to be interactive among your followers
     return jsonify(most_interacted_list)
 
 @app.route("/")
@@ -79,13 +89,16 @@ def create_user():
     print("FORM DATA:", dict(request.form))
     name = request.form["name"]
     if len(name) > 0:
-        print(name)
-        db.session.add(User(name=name))
         try:
-            client.get_user(name)
+            user_obj = client.get_user(name)
+            db.session.add(User(name=name, id=user_obj.id))
+            db.session.commit()
             tweets = client.user_timeline(name, tweet_mode="extended")
-            user = User.query.filter_by(name=name).first()
-            db.session.add(Tweet(user_id=user.id, status=tweets[0].full_text))
+            friends = client.friends(name, count=100)
+            db.session.add(Tweet(user_id=user_obj.id, status=tweets[0].full_text, id = tweets[0].id))
+            db.session.commit()
+            for friend in friends:
+                db.session.add(Friends(user_id=friend.id, screenname= friend.screen_name, friend_of_id = user_obj.id))
             db.session.commit()
         except TweepError:
             return render_template('error_new_user.html')
@@ -104,3 +117,17 @@ def tweets():
         del tweet_dict["_sa_instance_state"]
         tweets_list.append(tweet_dict)
     return jsonify(tweets_list)
+
+@app.route("/friends")
+def friends():
+    friends= Friends.query.all()
+    friends_list = []
+    for friend in friends:
+        friends_dict = friend.__dict__
+        del friends_dict['_sa_instance_state']
+        friends_list.append(friends_dict)
+    return jsonify(friends_list)
+
+@app.route("/similarities")
+def similarities():
+    return render_template('similarities.html')
