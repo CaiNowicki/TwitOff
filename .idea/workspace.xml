@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="46462181-f779-4c43-99bd-ce32568e8cd8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web_app/Procfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +38,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\caino\LambdaSchool\TwitOff" />
       <recent name="C:\Users\caino\LambdaSchool\TwitOff\web_app" />
     </key>
   </component>
@@ -120,29 +121,51 @@
       <option name="project" value="LOCAL" />
       <updated>1582169053627</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="updated requirements.txt">
+      <created>1582170686401</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1582170686401</updated>
+    </task>
+    <task id="LOCAL-00006" summary="updated requirements.txt">
+      <created>1582171099050</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1582171099050</updated>
+    </task>
+    <task id="LOCAL-00007" summary="updated requirements.txt">
+      <created>1582171167127</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1582171167127</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="added Tweep package, trying to pull tweets directly to add to db file" />
     <MESSAGE value="updated work notes for module 2" />
     <MESSAGE value="updated web app" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated web app" />
+    <MESSAGE value="updated requirements.txt" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated requirements.txt" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="1829" y="254" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1582170259209">
+    <state x="1829" y="254" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1582172108061">
       <screen x="1366" y="0" width="1440" height="900" />
     </state>
-    <state x="1829" y="254" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1366.768/1366.0.1440.900@1366.0.1440.900" timestamp="1582170259209" />
+    <state x="1829" y="254" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1366.768/1366.0.1440.900@1366.0.1440.900" timestamp="1582172108061" />
     <state x="413" y="132" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1581993333823">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="413" y="132" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.768/1366.0.1440.900@0.0.1366.768" timestamp="1581993333823" />
-    <state x="1721" y="0" key="CommitChangelistDialog2" timestamp="1582169051798">
+    <state x="1721" y="0" key="CommitChangelistDialog2" timestamp="1582171166190">
       <screen x="1366" y="0" width="1440" height="900" />
     </state>
     <state x="337" y="0" key="CommitChangelistDialog2/0.0.1366.768/1366.0.1440.900@0.0.1366.768" timestamp="1581915671698" />
-    <state x="1721" y="0" key="CommitChangelistDialog2/0.0.1366.768/1366.0.1440.900@1366.0.1440.900" timestamp="1582169051798" />
+    <state x="1721" y="0" key="CommitChangelistDialog2/0.0.1366.768/1366.0.1440.900@1366.0.1440.900" timestamp="1582171166190" />
     <state x="1643" y="117" key="DBNavigator.DatasetFilterDialog" timestamp="1582083078801">
       <screen x="1366" y="0" width="1440" height="900" />
     </state>
@@ -194,11 +217,11 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state width="1323" height="238" key="GridCell.Tab.1.right/0.0.1366.768/1366.0.1440.900@0.0.1366.768" timestamp="1582001240881" />
-    <state x="1442" y="64" key="SettingsEditor" timestamp="1582170008917">
+    <state x="1442" y="64" key="SettingsEditor" timestamp="1582170902134">
       <screen x="1366" y="0" width="1440" height="900" />
     </state>
     <state x="72" y="55" key="SettingsEditor/0.0.1366.768/1366.0.1440.900@0.0.1366.768" timestamp="1581909309004" />
-    <state x="1442" y="64" key="SettingsEditor/0.0.1366.768/1366.0.1440.900@1366.0.1440.900" timestamp="1582170008917" />
+    <state x="1442" y="64" key="SettingsEditor/0.0.1366.768/1366.0.1440.900@1366.0.1440.900" timestamp="1582170902134" />
     <state x="1766" y="245" key="com.intellij.ide.util.TipDialog" timestamp="1582077771523">
       <screen x="1366" y="0" width="1440" height="900" />
     </state>
