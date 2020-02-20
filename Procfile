@@ -1,1 +1,1 @@
-web: gunicorn "web_app:create_app()"git 
+web: gunicorn "web_app:create_app()"
