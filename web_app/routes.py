@@ -7,22 +7,30 @@ import basilica
 from sqlalchemy.exc import IntegrityError
 from tweepy import TweepError
 
-routes = Blueprint("routes", __name__)
-
 load_dotenv()
+
+TWITTER_API_KEY = os.getenv('TWITTER_API_KEY')
+TWITTER_API_SECRET = os.getenv('TWITTER_API_SECRET')
+TWITTER_ACCESS_TOKEN = os.getenv('TWITTER_ACCESS_TOKEN')
+TWITTER_ACCESS_TOKEN_SECRET = os.getenv('TWITTER_ACCESS_TOKEN_SECRET')
+
+auth = tweepy.OAuthHandler(TWITTER_API_KEY, TWITTER_API_SECRET)
+auth.set_access_token(TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_TOKEN_SECRET)
+client = tweepy.API(auth)
+
+routes = Blueprint("routes", __name__)
 
 basilica_api = os.getenv("basilica_api_key")
 c = basilica.Connection(basilica_api)
 
 @routes.route("/interactive_tweets", methods=["POST"])
 def interactive_tweets():
-    client = current_app.config['TWITTER_API_CLIENT']
     username = request.form['name']
-    friends = client.friends_id(username)
+    friends = client.friends(username)
     highest_count = 0
     most_interacted_list = []
     for friend in friends:
-        tweets = client.user_timeline(user_id=friend, tweet_mode='extended')
+        tweets = client.user_timeline(friend.screen_name, tweet_mode='extended')
         for tweet in tweets:
             interactions = tweet.retweet_count + tweet.favorite_count
             if interactions >= highest_count:
@@ -30,7 +38,6 @@ def interactive_tweets():
                 highest_count = interactions
         most_interacted_list.append(most_interacted)
         highest_count = 0
-    #  could create model to predict whether a tweet is going to be interactive among your followers
     return jsonify(most_interacted_list)
 
 
@@ -54,8 +61,6 @@ def users():
 
 @routes.route("/users/create", methods=["POST"])
 def create_user():
-    client = current_app.config["TWITTER_API_CLIENT"]
-    db.session.commit()
     print("CREATING A NEW USER...")
     print("FORM DATA:", dict(request.form))
     name = request.form["name"]
@@ -63,13 +68,9 @@ def create_user():
         try:
             user_obj = client.get_user(name)
             db.session.add(User(name=name, id=user_obj.id))
-            db.session.commit()
-            tweets = client.user_timeline(name, tweet_mode="extended")
+            tweet = client.user_timeline(name, tweet_mode="extended")
             friends = client.friends_ids(name)
-            for tweet in tweets:
-                embedding = c.embed_sentence(tweet, model='twitter')
-                db.session.add(Tweet(user_id=user_obj.id, status=tweet.full_text, id=tweet.id, embedding=embedding))
-            db.session.commit()
+            db.session.add(Tweet(user_id=user_obj.id, status=tweet[0].full_text, id=tweet[0].id))
             for friend in friends:
                 db.session.add(Friends(user_id=friend, friend_of_id=user_obj.id))
             db.session.commit()
