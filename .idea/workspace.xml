@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="46462181-f779-4c43-99bd-ce32568e8cd8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/web_app/Procfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Procfile" beforeDir="false" afterPath="$PROJECT_DIR$/Procfile" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -142,7 +141,35 @@
       <option name="project" value="LOCAL" />
       <updated>1582171167127</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="updated requirements.txt, added procfile">
+      <created>1582172159945</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1582172159945</updated>
+    </task>
+    <task id="LOCAL-00009" summary="updated requirements.txt, added procfile">
+      <created>1582172344581</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1582172344581</updated>
+    </task>
+    <task id="LOCAL-00010" summary="moved procfile to root dir">
+      <created>1582172669619</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1582172669619</updated>
+    </task>
+    <task id="LOCAL-00011" summary="changed procfile">
+      <created>1582173097873</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1582173097873</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -150,7 +177,10 @@
     <MESSAGE value="updated work notes for module 2" />
     <MESSAGE value="updated web app" />
     <MESSAGE value="updated requirements.txt" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated requirements.txt" />
+    <MESSAGE value="updated requirements.txt, added procfile" />
+    <MESSAGE value="moved procfile to root dir" />
+    <MESSAGE value="changed procfile" />
+    <option name="LAST_COMMIT_MESSAGE" value="changed procfile" />
   </component>
   <component name="WindowStateProjectService">
     <state x="1829" y="254" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1582172108061">
@@ -161,11 +191,11 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="413" y="132" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.768/1366.0.1440.900@0.0.1366.768" timestamp="1581993333823" />
-    <state x="1721" y="0" key="CommitChangelistDialog2" timestamp="1582171166190">
+    <state x="1721" y="0" key="CommitChangelistDialog2" timestamp="1582173096995">
       <screen x="1366" y="0" width="1440" height="900" />
     </state>
     <state x="337" y="0" key="CommitChangelistDialog2/0.0.1366.768/1366.0.1440.900@0.0.1366.768" timestamp="1581915671698" />
-    <state x="1721" y="0" key="CommitChangelistDialog2/0.0.1366.768/1366.0.1440.900@1366.0.1440.900" timestamp="1582171166190" />
+    <state x="1721" y="0" key="CommitChangelistDialog2/0.0.1366.768/1366.0.1440.900@1366.0.1440.900" timestamp="1582173096995" />
     <state x="1643" y="117" key="DBNavigator.DatasetFilterDialog" timestamp="1582083078801">
       <screen x="1366" y="0" width="1440" height="900" />
     </state>
