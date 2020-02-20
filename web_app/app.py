@@ -3,6 +3,7 @@ import tweepy
 from dotenv import load_dotenv
 import os
 import basilica
+from sqlalchemy.exc import IntegrityError
 from tweepy import TweepError
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -39,7 +40,6 @@ class Tweet(db.Model):
 
 class Friends(db.Model):
     user_id = db.Column(db.BIGINT, primary_key=True)
-    screenname = db.Column(db.String)
     friend_of_id = db.Column(db.BIGINT, db.ForeignKey("user.id"), nullable=False)
 
 
@@ -50,11 +50,11 @@ client = tweepy.API(auth)
 @app.route("/interactive_tweets", methods=["POST"])
 def interactive_tweets():
     username = request.form['name']
-    friends = client.friends(username, count=100)
+    friends = client.friends_id(username)
     highest_count = 0
     most_interacted_list = []
     for friend in friends:
-        tweets = client.user_timeline(friend.screen_name, tweet_mode='extended')
+        tweets = client.user_timeline(user_id=friend, tweet_mode='extended')
         for tweet in tweets:
             interactions = tweet.retweet_count + tweet.favorite_count
             if interactions >= highest_count:
@@ -94,14 +94,19 @@ def create_user():
             db.session.add(User(name=name, id=user_obj.id))
             db.session.commit()
             tweets = client.user_timeline(name, tweet_mode="extended")
-            friends = client.friends(name, count=100)
-            db.session.add(Tweet(user_id=user_obj.id, status=tweets[0].full_text, id = tweets[0].id))
+            friends = client.friends_ids(name)
+            for tweet in tweets:
+                embedding = c.embed_sentence(tweet, model='twitter')
+                db.session.add(Tweet(user_id=user_obj.id, status=tweet.full_text, id=tweet.id, embedding=embedding))
             db.session.commit()
             for friend in friends:
-                db.session.add(Friends(user_id=friend.id, screenname= friend.screen_name, friend_of_id = user_obj.id))
+                db.session.add(Friends(user_id=friend, friend_of_id = user_obj.id))
             db.session.commit()
         except TweepError:
             return render_template('error_new_user.html')
+        except IntegrityError:
+            return render_template('user_exists.html')
+
         print(jsonify({"message": "CREATED OK", "name": name}))
         return render_template('new_user_created.html')
     else:
@@ -110,11 +115,10 @@ def create_user():
 
 @app.route("/tweets")
 def tweets():
-    tweets = Tweet.query.all()
+    tweets = db.session.query(Tweet.user_id, Tweet.status).all()
     tweets_list = []
     for tweet in tweets:
-        tweet_dict = tweet.__dict__
-        del tweet_dict["_sa_instance_state"]
+        tweet_dict = {'user_id': tweet[0], 'tweet': tweet[1]}
         tweets_list.append(tweet_dict)
     return jsonify(tweets_list)
 
