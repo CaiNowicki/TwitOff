@@ -2,22 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="46462181-f779-4c43-99bd-ce32568e8cd8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/web_app/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web_app/templates/similarities.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/TwitOff.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/TwitOff.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web_app/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/web_app/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web_app/migrations/README" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/web_app/migrations/alembic.ini" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/web_app/migrations/env.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/web_app/migrations/script.py.mako" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/web_app/templates/homepage.html" beforeDir="false" afterPath="$PROJECT_DIR$/web_app/templates/homepage.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web_app/web_app_cai_nowicki.db" beforeDir="false" afterPath="$PROJECT_DIR$/web_app/web_app_cai_nowicki.db" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,6 +33,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../SideProjects/Side-Projects/Kaggle/DisasterTweets" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -118,23 +106,43 @@
       <option name="project" value="LOCAL" />
       <updated>1581915676212</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="updated work notes for module 2">
+      <created>1582087049933</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1582087049933</updated>
+    </task>
+    <task id="LOCAL-00004" summary="updated web app">
+      <created>1582169053627</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1582169053627</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="added Tweep package, trying to pull tweets directly to add to db file" />
     <MESSAGE value="updated work notes for module 2" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated work notes for module 2" />
+    <MESSAGE value="updated web app" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated web app" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="1829" y="254" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1582170259209">
+      <screen x="1366" y="0" width="1440" height="900" />
+    </state>
+    <state x="1829" y="254" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1366.768/1366.0.1440.900@1366.0.1440.900" timestamp="1582170259209" />
     <state x="413" y="132" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1581993333823">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="413" y="132" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.768/1366.0.1440.900@0.0.1366.768" timestamp="1581993333823" />
-    <state x="337" y="0" key="CommitChangelistDialog2" timestamp="1581915671698">
-      <screen x="0" y="0" width="1366" height="768" />
+    <state x="1721" y="0" key="CommitChangelistDialog2" timestamp="1582169051798">
+      <screen x="1366" y="0" width="1440" height="900" />
     </state>
     <state x="337" y="0" key="CommitChangelistDialog2/0.0.1366.768/1366.0.1440.900@0.0.1366.768" timestamp="1581915671698" />
+    <state x="1721" y="0" key="CommitChangelistDialog2/0.0.1366.768/1366.0.1440.900@1366.0.1440.900" timestamp="1582169051798" />
     <state x="1643" y="117" key="DBNavigator.DatasetFilterDialog" timestamp="1582083078801">
       <screen x="1366" y="0" width="1440" height="900" />
     </state>
@@ -145,11 +153,11 @@
     </state>
     <state x="213" y="40" key="DBNavigator.ProjectSettingsDialog/0.0.1366.768/1366.0.1440.900@0.0.1366.768" timestamp="1581910087527" />
     <state x="1591" y="47" key="DBNavigator.ProjectSettingsDialog/0.0.1366.768/1366.0.1440.900@1366.0.1440.900" timestamp="1582083049030" />
-    <state x="1853" y="163" key="FileChooserDialogImpl" timestamp="1582083043937">
+    <state x="1853" y="163" key="FileChooserDialogImpl" timestamp="1582164194724">
       <screen x="1366" y="0" width="1440" height="900" />
     </state>
     <state x="462" y="139" key="FileChooserDialogImpl/0.0.1366.768/1366.0.1440.900@0.0.1366.768" timestamp="1581910082315" />
-    <state x="1853" y="163" key="FileChooserDialogImpl/0.0.1366.768/1366.0.1440.900@1366.0.1440.900" timestamp="1582083043937" />
+    <state x="1853" y="163" key="FileChooserDialogImpl/0.0.1366.768/1366.0.1440.900@1366.0.1440.900" timestamp="1582164194724" />
     <state width="1397" height="235" key="GridCell.Tab.0.bottom" timestamp="1582082102101">
       <screen x="1366" y="0" width="1440" height="900" />
     </state>
@@ -186,10 +194,11 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state width="1323" height="238" key="GridCell.Tab.1.right/0.0.1366.768/1366.0.1440.900@0.0.1366.768" timestamp="1582001240881" />
-    <state x="72" y="55" key="SettingsEditor" timestamp="1581909309004">
-      <screen x="0" y="0" width="1366" height="768" />
+    <state x="1442" y="64" key="SettingsEditor" timestamp="1582170008917">
+      <screen x="1366" y="0" width="1440" height="900" />
     </state>
     <state x="72" y="55" key="SettingsEditor/0.0.1366.768/1366.0.1440.900@0.0.1366.768" timestamp="1581909309004" />
+    <state x="1442" y="64" key="SettingsEditor/0.0.1366.768/1366.0.1440.900@1366.0.1440.900" timestamp="1582170008917" />
     <state x="1766" y="245" key="com.intellij.ide.util.TipDialog" timestamp="1582077771523">
       <screen x="1366" y="0" width="1440" height="900" />
     </state>

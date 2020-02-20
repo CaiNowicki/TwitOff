@@ -34,7 +34,7 @@
       <console name="Connection" type="STANDARD" schema="main" session="Main" />
     </connection>
     <connection id="1c46f560-7aab-449a-97cd-d2fbc2b0d1cc">
-      <console name="web_app" type="STANDARD" schema="main" session="Main" />
+      <console name="web_app" type="STANDARD" schema="main" session="Main"><![CDATA[DROP TABLE friends;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
