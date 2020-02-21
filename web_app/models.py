@@ -14,6 +14,7 @@ class Tweet(db.Model):
     status = db.Column(db.String)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     embedding = db.Column(db.PickleType)
+    interactions = db.Column(db.Integer)
 
 
 class Friends(db.Model):

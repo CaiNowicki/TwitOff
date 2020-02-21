@@ -30,6 +30,20 @@
         <input type="text" name="name" placeholder="User XYZ">
         <button>Submit</button>
     </form>
-
+    <h1>Is a tweet likely to be highly interactive with your audience?</h1>
+    <h2>Add a user here to test them</h2>
+    <form action="/add_user_interactive" method="POST">
+        <label>User Name:</label>
+        <input type="text" name="name" placeholder="Username">
+        <button>Submit</button>
+    </form>
+    <h2>Test on a previously added user</h2>
+    <form action="/model_interactions" method="POST">
+        <label>User Name:</label>
+        <input type="text" name="name" placeholder="Username">
+        <label>Your Tweet:</label>
+        <input type="text" name="new_tweet" placeholder="Your Tweet Here">
+        <button>Predict!</button>
+    </form>
 </body>
 </html>

@@ -6,6 +6,8 @@ import os
 import basilica
 from sqlalchemy.exc import IntegrityError
 from tweepy import TweepError
+from sklearn.linear_model import LogisticRegression
+import numpy as np
 
 load_dotenv()
 
@@ -68,16 +70,18 @@ def create_user():
         try:
             user_obj = client.get_user(name)
             db.session.add(User(name=name, id=user_obj.id))
-            tweet = client.user_timeline(name, tweet_mode="extended")
+            db.session.commit()
+            tweets = client.user_timeline(name, tweet_mode="extended")
             friends = client.friends_ids(name)
-            db.session.add(Tweet(user_id=user_obj.id, status=tweet[0].full_text, id=tweet[0].id))
+            for tweet in tweets:
+                interactions = tweet.retweet_count + tweet.favorite_count
+                db.session.add(Tweet(user_id=user_obj.id, status=tweet.full_text, id=tweet.id, interactions=interactions))
+            db.session.commit()
             for friend in friends:
                 db.session.add(Friends(user_id=friend, friend_of_id=user_obj.id))
             db.session.commit()
         except TweepError:
             return render_template('error_new_user.html')
-        except IntegrityError:
-            return render_template('user_exists.html')
 
         print(jsonify({"message": "CREATED OK", "name": name}))
         return render_template('new_user_created.html')
@@ -107,6 +111,32 @@ def friends():
     return jsonify(friends_list)
 
 
-@routes.route("/similarities")
-def similarities():
-    return render_template('similarities.html')
+@routes.route("/add_user_interactive", methods=['POST'])
+def add_to_database():
+    user=request.form['name']
+    tweets = client.user_timeline(user, tweet_mode="extended", count=200, exclude_replies=True, include_rts=False)
+    userid = client.get_user(user).id
+    try:
+        db.session.add(User(name=user, id=userid))
+        db.session.commit()
+        for tweet in tweets:
+            interactions = tweet.retweet_count + tweet.favorite_count
+            embedded = c.embed_sentence(tweet.full_text)
+            db.session.add(Tweet(user_id=userid, status=tweet.full_text, id=tweet.id, embedding=embedded, interactions=interactions))
+        db.session.commit()
+    except IntegrityError:
+        pass
+    return jsonify({"message": "User and existing tweets added to database"})
+
+@routes.route("/model_interactions")
+def train_model():
+    user = request.form("name")
+    userid = client.get_user(user).id
+    new_tweet = request.form['new_tweet']
+    new_tweet_embedded = c.embed_sentence(new_tweet, model='twitter')
+    model_tweets = Tweet.query.filter(Tweet.user_id == userid).all()
+    embeddings_array = np.array([tweet.embedding for tweet in model_tweets])
+    interactions_array = np.array([tweet.interactions for tweet in model_tweets])
+    classifier = LogisticRegression().fit(embeddings_array, interactions_array)
+    results = classifier.predict(new_tweet_embedded)
+    return render_template('likely_interactive.html', prediction_results=results, tweet=new_tweet, user=user)
