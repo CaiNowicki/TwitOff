@@ -17,5 +17,6 @@ class Tweet(db.Model):
 
 
 class Friends(db.Model):
-    user_id = db.Column(db.BIGINT, primary_key=True)
+    friend_db_id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.BIGINT)
     friend_of_id = db.Column(db.BIGINT, db.ForeignKey("user.id"), nullable=False)
