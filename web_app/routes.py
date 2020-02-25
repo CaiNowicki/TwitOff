@@ -121,22 +121,27 @@ def add_to_database():
         db.session.commit()
         for tweet in tweets:
             interactions = tweet.retweet_count + tweet.favorite_count
-            embedded = c.embed_sentence(tweet.full_text)
+            embedded = c.embed_sentence(tweet.full_text, model='twitter')
             db.session.add(Tweet(user_id=userid, status=tweet.full_text, id=tweet.id, embedding=embedded, interactions=interactions))
         db.session.commit()
     except IntegrityError:
         pass
     return jsonify({"message": "User and existing tweets added to database"})
 
-@routes.route("/model_interactions")
+@routes.route("/model_interactions", methods=['POST'])
 def train_model():
-    user = request.form("name")
+    user = request.form["name"]
     userid = client.get_user(user).id
     new_tweet = request.form['new_tweet']
-    new_tweet_embedded = c.embed_sentence(new_tweet, model='twitter')
+    new_tweet_embedded = np.array(c.embed_sentence(new_tweet, model='twitter')).reshape(1, -1)
     model_tweets = Tweet.query.filter(Tweet.user_id == userid).all()
     embeddings_array = np.array([tweet.embedding for tweet in model_tweets])
     interactions_array = np.array([tweet.interactions for tweet in model_tweets])
-    classifier = LogisticRegression().fit(embeddings_array, interactions_array)
+    labels = interactions_array
+    classifier = LogisticRegression().fit(embeddings_array, labels)
     results = classifier.predict(new_tweet_embedded)
-    return render_template('likely_interactive.html', prediction_results=results, tweet=new_tweet, user=user)
+    probability = classifier.predict_proba(new_tweet_embedded)
+    predicted_idx = np.argmax(probability, axis=1)
+    probability = probability[range(probability.shape[0]), predicted_idx]
+    return render_template('likely_interactive.html', prediction_results=results[0], tweet=new_tweet,
+                           user=user, probability=probability[0])
