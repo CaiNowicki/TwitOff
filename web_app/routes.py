@@ -4,7 +4,7 @@ import tweepy
 from dotenv import load_dotenv
 import os
 import basilica
-from sqlalchemy.exc import IntegrityError
+from sqlalchemy.exc import IntegrityError, InvalidRequestError
 from tweepy import TweepError
 from sklearn.linear_model import LogisticRegression
 import numpy as np
@@ -124,8 +124,15 @@ def add_to_database():
             embedded = c.embed_sentence(tweet.full_text, model='twitter')
             db.session.add(Tweet(user_id=userid, status=tweet.full_text, id=tweet.id, embedding=embedded, interactions=interactions))
         db.session.commit()
-    except IntegrityError:
-        pass
+    except IntegrityError or InvalidRequestError:
+        db.session.rollback()
+        existing_ids = Tweet.query.filter(Tweet.user_id == userid).all()
+        for tweet in tweets:
+            if tweet.id not in existing_ids:
+                interactions = tweet.retweet_count + tweet.favorite_count
+                embedded = c.embed_sentence(tweet.full_text, model='twitter')
+                db.session.add(Tweet(user_id=userid, status=tweet.full_text, id=tweet.id, embedding=embedded,
+                                     interactions=interactions))
     return jsonify({"message": "User and existing tweets added to database"})
 
 @routes.route("/model_interactions", methods=['POST'])
@@ -143,5 +150,6 @@ def train_model():
     probability = classifier.predict_proba(new_tweet_embedded)
     predicted_idx = np.argmax(probability, axis=1)
     probability = probability[range(probability.shape[0]), predicted_idx]
+    print(labels)
     return render_template('likely_interactive.html', prediction_results=results[0], tweet=new_tweet,
                            user=user, probability=probability[0])
